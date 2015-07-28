@@ -1,0 +1,61 @@
+doctype html
+head
+  title Test
+  link( rel='stylesheet', href="/stylesheets/style.css" )
+  script( src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js" )
+  script( src="javascripts/grids.js" )
+  script( src="javascripts/springy.js" )
+  script( src="javascripts/springyui.js" )
+body
+  table( height=800 )
+    tbody
+      tr
+        td( style="vertical-align:top" )
+          div( id="board-div" )
+        td( style="vertical-align:top" )
+          div( id="graph-div" )
+        td( style="vertical-align:top" )
+          div( id="detail-div" )
+script.
+  function Clicked() {
+    alert("clicked");
+  }
+  function ApiTest(element) {
+    element.html("");
+    $.ajax({
+      url: "/test/api",
+      type: 'GET',
+      data: {
+        'myparam': 'pasndoqwe'
+      },
+      success: function(data) {
+        var e = $('<pre/>', {text: data.toString()}).appendTo(element);
+      }
+    });
+  }
+  function JsonTest(input, element) {
+    element.html("");
+    $.ajax({
+      url: "/test/api",
+      type: 'GET',
+      data: {
+        'additional_element': input,
+        'myparam': 'wpoqenp'
+      },
+      success: function(data) {
+        var e = $('<pre/>').appendTo(element);
+        var obj = JSON.parse(data);
+        e.text(obj['test_array'].toString());
+      }
+    });
+  }
+  var graphview;
+  function ShowGraph(element, detailElement, boardElement) {
+    graphview = new GraphView(element[0], detailElement[0], boardElement[0]);
+    //graphview.switchToEntity(new TestEntity());
+    var aad = new AadGraphContext();
+    UserEntity.createUserAsync(aad, "me", function (entity) {
+      graphview.switchToEntity(entity);
+    });
+  }
+  ShowGraph($('#graph-div'), $('#detail-div'), $('#board-div'));

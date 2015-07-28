@@ -1,0 +1,13 @@
+{
+  "name": "msgraph-visualizer",
+  "version": "0.0.1",
+  "dependencies": {
+    "passport": "0.1.18",
+    "passport-oauth": "1.0.0",
+    "express": "3.x",
+    "sync-request": "2.0.1",
+    "path": "0.11.14",
+    "jade": "1.11.0",
+    "connect-mongodb": "*"
+  }
+}
